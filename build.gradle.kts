@@ -68,7 +68,15 @@ tasks.register<GenerateTask>("generateOpenApi") {
 		mapOf(
 			"library" to "spring-declarative-http-interface",
 			"gradleBuildFile" to "false",
-			"useResponseEntity" to "false"
+			"useResponseEntity" to "false",
+			"useTags" to "true",
+		)
+	)
+
+	globalProperties.set(
+		mapOf(
+			"apis" to "Pet", // petのみ生成
+			"models" to ""
 		)
 	)
 
@@ -78,7 +86,6 @@ tasks.register<GenerateTask>("generateOpenApi") {
 	}
 
 	doLast {
-		println("hoge")
 		// 既存のコードを削除
 		delete("src/main/kotlin/com/yamayamako/gen")
 
