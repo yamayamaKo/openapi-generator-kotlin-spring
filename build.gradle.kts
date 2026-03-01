@@ -32,6 +32,10 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// swagger-annotationsの追加
+	implementation("jakarta.validation:jakarta.validation-api")
+	implementation("io.swagger.core.v3:swagger-annotations:2.2.20")
 }
 
 kotlin {
@@ -68,8 +72,8 @@ tasks.register<GenerateTask>("generateOpenApi") {
 		)
 	)
 
-	// 生成前に出力ディレクトリをクリーンアップ
 	doFirst {
+		// 生成前に出力ディレクトリをクリーンアップ
 		delete(outputDir.get())
 	}
 
