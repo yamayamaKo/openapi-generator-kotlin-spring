@@ -1,0 +1,12 @@
+# 未使用の場合は生成したくないコンポーネントを指定
+unusedComponents:
+  - schemas
+  - requestBodies
+
+# 使いたいタグのみに絞る
+inverseTags:
+  - pet
+
+# エンドポイントごとに絞ることも可能
+#inverseOperationIds:
+#  - updatePet

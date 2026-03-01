@@ -50,7 +50,9 @@ tasks.withType<Test> {
 
 tasks.register<GenerateTask>("generateOpenApi") {
 	generatorName.set("kotlin-spring")
-	inputSpec.set("$rootDir/src/main/resources/openapi-sample.yaml")
+	inputSpec.set("$rootDir/src/main/resources/openapi-sample.filtered.yaml")
+	// ちなみに、下記のようにリモートのyamlやjsonのopenapi定義を指定することも可能
+	// remoteInputSpec.set("https://petstore3.swagger.io/api/v3/openapi.json")
 	outputDir.set("${layout.buildDirectory.get()}/generated")
 
 	val packageName = "com.yamayamako.openapi_generator"
@@ -69,14 +71,6 @@ tasks.register<GenerateTask>("generateOpenApi") {
 			"library" to "spring-declarative-http-interface",
 			"gradleBuildFile" to "false",
 			"useResponseEntity" to "false",
-			"useTags" to "true",
-		)
-	)
-
-	globalProperties.set(
-		mapOf(
-			"apis" to "Pet", // petのみ生成
-			"models" to ""
 		)
 	)
 
