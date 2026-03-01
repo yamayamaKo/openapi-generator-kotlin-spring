@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.targets.js.npm.importedPackageDir
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
 plugins {
 	kotlin("jvm") version "2.2.21"
 	kotlin("plugin.spring") version "2.2.21"
@@ -8,7 +11,7 @@ plugins {
 	id("org.openapi.generator") version "7.19.0"
 }
 
-group = "com.yamada"
+group = "com.yamayamako"
 version = "0.0.1-SNAPSHOT"
 description = "Demo project for Spring Boot"
 
@@ -41,12 +44,12 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-openApiGenerate {
+tasks.register<GenerateTask>("generateOpenApi") {
 	generatorName.set("kotlin-spring")
 	inputSpec.set("$rootDir/src/main/resources/openapi-sample.yaml")
 	outputDir.set("${layout.buildDirectory.get()}/generated")
 
-	val packageName = "com.yamada.openapi_generator"
+	val packageName = "com.yamayamako.openapi_generator"
 	apiPackage.set("${packageName}.api")
 	modelPackage.set("${packageName}.model")
 
@@ -65,5 +68,20 @@ openApiGenerate {
 		)
 	)
 
-	// 生成前に
+	// 生成前に出力ディレクトリをクリーンアップ
+	doFirst {
+		delete(outputDir.get())
+	}
+
+	doLast {
+		println("hoge")
+		// 既存のコードを削除
+		delete("src/main/kotlin/com/yamayamako/gen")
+
+		// 生成したコードをコピー
+		copy {
+			from("${outputDir.get()}/src/main/kotlin/com/yamayamako/openapi_generator")
+			into("src/main/kotlin/com/yamayamako/gen")
+		}
+	}
 }

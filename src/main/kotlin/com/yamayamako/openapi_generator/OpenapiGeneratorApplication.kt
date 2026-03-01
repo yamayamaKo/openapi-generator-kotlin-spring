@@ -1,4 +1,4 @@
-package com.yamada.openapi_generator
+package com.yamayamako.openapi_generator
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
